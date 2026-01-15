@@ -5,3 +5,4 @@
 5. da eroarea nu doar cand dai log-out, ci si cand inchizi browserul (js alert)
 6. completat fisierul __manifest__.py cu mai multe informatii
 7. sa te anunte ca nu ti-ai dat checkout daca a trecut de programul de munca (fara sa te blocheze)
+8. un total de ore lucrate pe filtrul selectat pe timesheet
