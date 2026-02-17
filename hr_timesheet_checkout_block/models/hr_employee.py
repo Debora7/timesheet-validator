@@ -14,16 +14,25 @@ class HrEmployee(models.Model):
         attendance_status = self.env["hr.attendance"].search([
             ("employee_id" ,"=", self.id),
             ("check_in", ">=", current_date),
-            ("check_out", "=", False),
+            ("check_out", "=", False), 
         ])
 
-        timesheet = self.env['account.analytic.line'].search([
+        timesheets = self.env['account.analytic.line'].search([
             ("user_id", "=", current_user_id),
             ("date", "=", current_date),
             ("unit_amount" , ">", 0),
         ])
 
-        if(len(timesheet) == 0 and len(attendance_status) != 0):
+        total_hours_spent = 0
+        for time in timesheets:
+            total_hours_spent += time.unit_amount
+
+        working_hours = self.resource_calendar_id.hours_per_day
+
+        if total_hours_spent < working_hours * 0.8:
+            raise UserError(f"User has only {total_hours_spent} hours logged. It should be {working_hours} hours.")
+
+        if(len(timesheets) == 0 and len(attendance_status) != 0):
            raise UserError("User has no timesheet entries for today.")
 
         super()._attendance_action_change(geo_information=geo_information)
