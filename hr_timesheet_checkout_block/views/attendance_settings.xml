@@ -1,0 +1,16 @@
+<odoo>
+    <record id='attendance_settings' model='ir.ui.view'>
+        <field name='name'>attendance.settings</field>
+        <field name='model'>hr.employee</field>
+        <field name='inherit_id' ref='hr.view_employee_form'></field>
+        <field name='arch' type='xml'>
+            <xpath expr="//group[@name='identification_group']" position="after">
+                <group string='Attendance employee settings'>
+                    <field name='working_hours'></field>
+                    <field name='attendance'></field>
+                    <field name='procent'></field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

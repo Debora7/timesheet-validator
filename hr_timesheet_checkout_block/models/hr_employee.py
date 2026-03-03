@@ -31,11 +31,6 @@ class HrEmployee(models.Model):
         for time in timesheets:
             total_hours_spent += time.unit_amount
 
-        #TODO set from XML on settings
-        self.working_hours = False 
-        self.procent = 0.8
-        self.attendance = True
-
         if self.working_hours:
             self.with_context(to_check='working_hours').timesheet_restriction(total_hours_spent)
 
